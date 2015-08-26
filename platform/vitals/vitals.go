@@ -6,6 +6,7 @@ type Vitals struct {
 	Load []string     `json:"load,omitempty"`
 	Mem  MemoryVitals `json:"mem"`
 	Swap MemoryVitals `json:"swap"`
+	Process []interface{} `json:"processes,omitempty"`
 }
 
 type CPUVitals struct {

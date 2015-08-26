@@ -20,7 +20,7 @@ type JobSupervisor interface {
 	Unmonitor() error
 
 	Status() string
-
+	ServiceStatus() map[string]interface{}
 	// Job management
 	AddJob(jobName string, jobIndex int, configPath string) error
 	RemoveAllJobs() error
