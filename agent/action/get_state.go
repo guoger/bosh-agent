@@ -68,6 +68,8 @@ func (a GetStateAction) Run(filters ...string) (GetStateV1ApplySpec, error) {
 			return GetStateV1ApplySpec{}, bosherr.WrapError(err, "Building full vitals")
 		}
 		vitalsReference = &vitals
+		vitals.Process = []interface{}{}
+		vitals.Process = append(vitals.Process, a.jobSupervisor.ServiceStatus())
 	}
 
 	settings := a.settingsService.GetSettings()

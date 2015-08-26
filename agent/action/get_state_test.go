@@ -2,6 +2,8 @@ package action_test
 
 import (
 	"errors"
+	"fmt"
+	"reflect"
 
 	. "github.com/cloudfoundry/bosh-agent/internal/github.com/onsi/ginkgo"
 	. "github.com/cloudfoundry/bosh-agent/internal/github.com/onsi/gomega"
@@ -102,12 +104,19 @@ var _ = Describe("GetState", func() {
 					}
 
 					expectedVitals := boshvitals.Vitals{
-						Load: []string{"foo", "bar", "baz"},
+						Load:    []string{"foo", "bar", "baz"},
+						Process: []interface{}{nil},
 					}
+
+					fmt.Println("##### Expected:", reflect.TypeOf(expectedVitals.Process))
+
 					vitalsService.GetVitals = expectedVitals
 					expectedVM := map[string]interface{}{"name": "vm-abc-def"}
 
 					state, err := action.Run("full")
+
+					fmt.Println("$$$$$ Actual:", reflect.TypeOf(state.Vitals.Process))
+
 					Expect(err).ToNot(HaveOccurred())
 
 					boshassert.MatchesJSONString(GinkgoT(), state.AgentID, `"my-agent-id"`)

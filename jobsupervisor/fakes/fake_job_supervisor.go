@@ -23,7 +23,8 @@ type FakeJobSupervisor struct {
 	Unmonitored  bool
 	UnmonitorErr error
 
-	StatusStatus string
+	StatusStatus        string
+	ServiceStatusStatus map[string]interface{}
 
 	JobFailureAlert *boshalert.MonitAlert
 }
@@ -75,6 +76,10 @@ func (m *FakeJobSupervisor) Unmonitor() error {
 
 func (m *FakeJobSupervisor) Status() string {
 	return m.StatusStatus
+}
+
+func (m *FakeJobSupervisor) ServiceStatus() map[string]interface{} {
+	return m.ServiceStatusStatus
 }
 
 func (m *FakeJobSupervisor) MonitorJobFailures(handler boshjobsuper.JobFailureHandler) error {

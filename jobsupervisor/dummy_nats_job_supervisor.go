@@ -11,13 +11,15 @@ import (
 type dummyNatsJobSupervisor struct {
 	mbusHandler       boshhandler.Handler
 	status            string
+	serviceStatus     map[string]interface{}
 	jobFailureHandler JobFailureHandler
 }
 
 func NewDummyNatsJobSupervisor(mbusHandler boshhandler.Handler) JobSupervisor {
 	return &dummyNatsJobSupervisor{
-		mbusHandler: mbusHandler,
-		status:      "running",
+		mbusHandler:   mbusHandler,
+		status:        "running",
+		serviceStatus: map[string]interface{}{},
 	}
 }
 
@@ -56,6 +58,10 @@ func (d *dummyNatsJobSupervisor) RemoveAllJobs() error {
 
 func (d *dummyNatsJobSupervisor) Status() string {
 	return d.status
+}
+
+func (d *dummyNatsJobSupervisor) ServiceStatus() map[string]interface{} {
+	return d.serviceStatus
 }
 
 func (d *dummyNatsJobSupervisor) MonitorJobFailures(handler JobFailureHandler) error {
