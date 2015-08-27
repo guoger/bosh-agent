@@ -182,19 +182,20 @@ func (m monitJobSupervisor) Status() (status string) {
 }
 
 func (m monitJobSupervisor) ServiceStatus() (stats map[string]interface{}) {
-	stats = make(map[string]interface{})
+       stats = make(map[string]interface{})
 
-	monitStatus, err := m.client.Status()
-	if err != nil {
-		return
-	}
+       monitStatus, err := m.client.Status()
+       if err != nil {
+               return
+       }
 
-	for _, service := range monitStatus.ServicesInGroup("vcap") {
-		stats[service.Name] = service
-	}
+       for _, service := range monitStatus.ServicesInGroup("vcap") {
+               stats[service.Name] = service
+       }
 
-	return
+       return
 }
+
 
 func (m monitJobSupervisor) getIncarnation() (int, error) {
 	monitStatus, err := m.client.Status()

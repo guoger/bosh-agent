@@ -1,7 +1,7 @@
 package jobsupervisor
 
 type dummyJobSupervisor struct {
-	status        string
+	status string
 	serviceStatus map[string]interface{}
 }
 

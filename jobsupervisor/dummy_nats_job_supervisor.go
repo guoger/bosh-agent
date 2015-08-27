@@ -17,8 +17,8 @@ type dummyNatsJobSupervisor struct {
 
 func NewDummyNatsJobSupervisor(mbusHandler boshhandler.Handler) JobSupervisor {
 	return &dummyNatsJobSupervisor{
-		mbusHandler:   mbusHandler,
-		status:        "running",
+		mbusHandler: mbusHandler,
+		status:      "running",
 		serviceStatus: map[string]interface{}{},
 	}
 }
